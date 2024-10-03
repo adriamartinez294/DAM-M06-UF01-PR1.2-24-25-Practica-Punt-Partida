@@ -2,7 +2,6 @@ package com.project;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.project.excepcions.IOFitxerExcepcio;
 
@@ -36,7 +35,7 @@ public class PR120mainPersonesHashmap {
     }
 
     // Mètode per escriure les persones al fitxer
-    public static void escriurePersones(HashMap<String, Integer> persones) throws IOFitxerExcepcio, FileNotFoundException, IOException {
+    public static void escriurePersones(HashMap<String, Integer> persones) throws IOFitxerExcepcio {
        // *************** CODI PRÀCTICA **********************/
 
             try (FileOutputStream fos = new FileOutputStream(getFilePath());
@@ -51,12 +50,14 @@ public class PR120mainPersonesHashmap {
 
                     dos.flush();
    
-        }
+            }
+       } catch (IOException e) {
+            throw new IOFitxerExcepcio("Error en escriure les persones al fitxer");
        }
     }
 
     // Mètode per llegir les persones des del fitxer
-    public static void llegirPersones() throws IOFitxerExcepcio, FileNotFoundException, IOException {
+    public static void llegirPersones() throws IOFitxerExcepcio {
         // *************** CODI PRÀCTICA **********************/
         HashMap<String, Integer> persones = new HashMap<>();
 
@@ -75,6 +76,8 @@ public class PR120mainPersonesHashmap {
                 for (HashMap.Entry<String, Integer> entry : persones.entrySet()) {
                     System.out.println(entry.getKey() + ": " + entry.getValue() + " anys");
                 }
+            } catch (IOException e) {
+                throw new IOFitxerExcepcio("Error en llegir les persones del fitxer");
             }
     }
 }
